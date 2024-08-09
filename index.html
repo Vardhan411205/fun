@@ -23,7 +23,7 @@
             color: blue;
         }
         #customConfirm {
-            display: flex;
+            display: none;
             position: fixed;
             background-color: white;
             border: 1px solid #ccc;
@@ -85,12 +85,23 @@
 
             // Set a new position for the dialog if Cancel is clicked
             function setDialogPosition() {
-                // Center the dialog horizontally
-                const top = 20 + Math.random() * (window.innerHeight - 150); // 150px is an approximate height of the dialog
-                const left = (window.innerWidth - document.getElementById('customConfirm').offsetWidth) / 2; // Center horizontally
-                document.getElementById('customConfirm').style.top = `${top}px`;
-                document.getElementById('customConfirm').style.left = `${left}px`;
-            }
+    const dialog = document.getElementById('customConfirm');
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const dialogWidth = dialog.offsetWidth;
+    const dialogHeight = dialog.offsetHeight;
+    
+    // Calculate maximum possible top and left values
+    const maxTop = viewportHeight - dialogHeight - 20; // 20px padding
+    const maxLeft = viewportWidth - dialogWidth - 20; // 20px padding
+
+    // Generate random top and left values within the viewport bounds
+    const top = Math.max(20, Math.random() * maxTop); // Ensure the top value is at least 20px from the top
+    const left = Math.max(20, Math.random() * maxLeft); // Ensure the left value is at least 20px from the left
+
+    dialog.style.top = `${top}px`;
+    dialog.style.left = `${left}px`;
+}
 
             setDialogPosition(); // Set the initial position
 
